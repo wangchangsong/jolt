@@ -30,8 +30,8 @@ public class RealFilter implements QueryFilter {
     private final String value;
 
     @JsonCreator
-    public RealFilter( @JsonProperty( "queryParam" ) QueryParam queryParam,
-                       @JsonProperty( "value" ) String value ) {
+    public RealFilter(@JsonProperty("queryParam") QueryParam queryParam,
+                      @JsonProperty("value") String value) {
         this.queryParam = queryParam;
         this.value = value;
     }

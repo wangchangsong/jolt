@@ -1,14 +1,12 @@
 {
-    "input": {
-    },
-
-    "spec": {
-        "array": [],
-        "map": {}
-    },
-
-    "expected": {
-        "array": [],
-        "map": {}
-    }
+  "input": {
+  },
+  "spec": {
+    "array": [],
+    "map": {}
+  },
+  "expected": {
+    "array": [],
+    "map": {}
+  }
 }

@@ -1,4 +1,3 @@
-
 // This is a much nicer formulation / format.
 // Silly "queryParam" is gone, but still have all values being Strings, e.g. "value": "3".
 //
@@ -6,34 +5,34 @@
 //  Java "three" is nicer than "two", in that more logic was moved out of the MappingTest Module
 //  into the LogicalFilter3 @JsonDeserializer
 {
-    "AND" : [
+  "AND": [
+    {
+      "queryParam": "RATING",
+      "value": "3"
+    },
+    {
+      "queryParam": "PRODUCTID",
+      "value": "Acme-1234"
+    },
+    {
+      "OR": [
         {
-            "queryParam": "RATING",
-            "value": "3"
+          "queryParam": "ID",
+          "value": "789"
         },
         {
-            "queryParam": "PRODUCTID",
-            "value": "Acme-1234"
-        },
-        {
-            "OR" : [
-                {
-                    "queryParam": "ID",
-                    "value": "789"
-                },
-                {
-                    "AND" : [
-                        {
-                            "queryParam": "ISFEATURED",
-                            "value": "true"
-                        },
-                        {
-                            "queryParam": "HASPHOTOS",
-                            "value": "true"
-                        }
-                    ]
-                }
-            ]
+          "AND": [
+            {
+              "queryParam": "ISFEATURED",
+              "value": "true"
+            },
+            {
+              "queryParam": "HASPHOTOS",
+              "value": "true"
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ]
 }

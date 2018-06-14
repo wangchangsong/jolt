@@ -27,7 +27,7 @@ public class GuiceTransformMissingInjectAnnotation implements Transform {
     public static class BadGuiceConfig {
         private final String key, value;
 
-        public BadGuiceConfig( String key, String value ) {
+        public BadGuiceConfig(String key, String value) {
             this.key = key;
             this.value = value;
         }
@@ -35,14 +35,14 @@ public class GuiceTransformMissingInjectAnnotation implements Transform {
 
     private final BadGuiceConfig config;
 
-    public GuiceTransformMissingInjectAnnotation( BadGuiceConfig config ) {
+    public GuiceTransformMissingInjectAnnotation(BadGuiceConfig config) {
         this.config = config;
     }
 
     @Override
-    public Object transform( Object input ) {
+    public Object transform(Object input) {
 
-        ((Map) input).put( config.key, config.value );
+        ((Map) input).put(config.key, config.value);
         return input;
     }
 }

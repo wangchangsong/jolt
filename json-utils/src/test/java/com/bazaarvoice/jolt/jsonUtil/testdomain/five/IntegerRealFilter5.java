@@ -26,8 +26,8 @@ public class IntegerRealFilter5 extends RealFilter5<Integer> {
 
     @JsonCreator
     public IntegerRealFilter5(@JsonProperty("field") Field field,
-            @JsonProperty("operator") Operator op,
-            @JsonProperty("values") List<Integer> values) {
+                              @JsonProperty("operator") Operator op,
+                              @JsonProperty("values") List<Integer> values) {
         super(field, op);
         this.values = values;
     }

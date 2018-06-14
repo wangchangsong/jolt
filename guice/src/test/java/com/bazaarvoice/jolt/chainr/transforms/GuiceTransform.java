@@ -25,7 +25,7 @@ public class GuiceTransform implements Transform {
     public static class GuiceConfig {
         private final String key, value;
 
-        public GuiceConfig( String key, String value ) {
+        public GuiceConfig(String key, String value) {
             this.key = key;
             this.value = value;
         }
@@ -34,14 +34,14 @@ public class GuiceTransform implements Transform {
     private final GuiceConfig config;
 
     @Inject
-    public GuiceTransform( GuiceConfig config ) {
+    public GuiceTransform(GuiceConfig config) {
         this.config = config;
     }
 
     @Override
-    public Object transform( Object input ) {
+    public Object transform(Object input) {
 
-        ((Map) input).put( config.key, config.value );
+        ((Map) input).put(config.key, config.value);
         return input;
     }
 }

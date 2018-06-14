@@ -45,7 +45,7 @@ public class LogicalFilter3 implements QueryFilter {
         @Override
         public void serialize(LogicalFilter3 filter, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             jgen.writeStartObject();
-            jgen.writeObjectField( filter.getQueryParam().toString(), filter.getFilters().values() );
+            jgen.writeObjectField(filter.getQueryParam().toString(), filter.getFilters().values());
             jgen.writeEndObject();
         }
     }
@@ -53,7 +53,7 @@ public class LogicalFilter3 implements QueryFilter {
     public static class LogicalFilter4Deserializer extends JsonDeserializer<LogicalFilter3> {
 
         @Override
-        public LogicalFilter3 deserialize( JsonParser jp, DeserializationContext ctxt ) throws IOException {
+        public LogicalFilter3 deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 
             ObjectCodec objectCodec = jp.getCodec();
             ObjectNode root = jp.readValueAsTree();
@@ -63,27 +63,28 @@ public class LogicalFilter3 implements QueryFilter {
             String key = iter.next();
 
             JsonNode arrayNode = root.iterator().next();
-            if ( arrayNode == null || arrayNode.isMissingNode() || ! arrayNode.isArray() ) {
-                throw new RuntimeException( "Invalid format of LogicalFilter encountered." );
+            if (arrayNode == null || arrayNode.isMissingNode() || !arrayNode.isArray()) {
+                throw new RuntimeException("Invalid format of LogicalFilter encountered.");
             }
 
             // pass in our objectCodec so that the subJsonParser knows about our configured Modules and Annotations
-            JsonParser subJsonParser = arrayNode.traverse( objectCodec );
-            List<QueryFilter> childrenQueryFilters = subJsonParser.readValueAs( new TypeReference<List<QueryFilter>>() {} );
+            JsonParser subJsonParser = arrayNode.traverse(objectCodec);
+            List<QueryFilter> childrenQueryFilters = subJsonParser.readValueAs(new TypeReference<List<QueryFilter>>() {
+            });
 
-            return new LogicalFilter3( QueryParam.valueOf( key ), childrenQueryFilters );
+            return new LogicalFilter3(QueryParam.valueOf(key), childrenQueryFilters);
         }
     }
 
     private final QueryParam queryParam;
     private final Map<QueryParam, QueryFilter> filters;
 
-    public LogicalFilter3( QueryParam queryParam, List<QueryFilter> filters ) {
+    public LogicalFilter3(QueryParam queryParam, List<QueryFilter> filters) {
         this.queryParam = queryParam;
 
         this.filters = new LinkedHashMap<>();
-        for ( QueryFilter queryFilter : filters ) {
-            this.filters.put( queryFilter.getQueryParam(), queryFilter );
+        for (QueryFilter queryFilter : filters) {
+            this.filters.put(queryFilter.getQueryParam(), queryFilter);
         }
     }
 

@@ -1,59 +1,126 @@
 {
-    "input": {
-        "objectMapFill": [
-            {},{},{}
-        ],
-        "objectArrayFill": [
-            [],[],[]
-        ]
+  "input": {
+    "objectMapFill": [
+      {},
+      {},
+      {}
+    ],
+    "objectArrayFill": [
+      [],
+      [],
+      []
+    ]
+  },
+  "spec": {
+    "objectMapFill": {
+      "*": {
+        "a": "b"
+      },
+      "[3]": {
+        "x": "y"
+      }
     },
-
-    "spec": {
-        "objectMapFill": {
-            "*": {"a": "b"},
-            "[3]": {"x": "y"}
-
-        },
-        "objectArrayFill": {
-            "*": "=toList(0)",
-            "[4]": "=toList(4)"
-        },
-        "emptyMap": {},
-        "emptyList": []
+    "objectArrayFill": {
+      "*": "=toList(0)",
+      "[4]": "=toList(4)"
     },
-
-    "context": {},
-
-    "OVERWRITR": {
-        "objectMapFill": [
-            {"a": "b"},{"a": "b"},{"a": "b"},{"a": "b", "x": "y"}
-        ],
-        "objectArrayFill": [
-            [0],[0],[0],[0],[0]
-        ],
-        "emptyMap": {},
-        "emptyList": []
-    },
-
-    "DEFAULTR": {
-        "objectMapFill" : [
-            {"a": "b"},{"a": "b"},{"a": "b"},{"a": "b", "x": "y"}
-        ],
-        "objectArrayFill" : [
-            [],[],[],[0],[4]
-        ],
-        "emptyMap" : { },
-        "emptyList" : []
-    },
-
-    "DEFINR": {
-        "objectMapFill" : [
-            {"a": "b"},{"a": "b"},{"a": "b"},{"x": "y"}
-        ],
-        "objectArrayFill" : [
-            [],[],[],[0],[4]
-        ],
-        "emptyMap" : {},
-        "emptyList" : []
-    }
+    "emptyMap": {},
+    "emptyList": []
+  },
+  "context": {},
+  "OVERWRITR": {
+    "objectMapFill": [
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "a": "b",
+        "x": "y"
+      }
+    ],
+    "objectArrayFill": [
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ],
+      [
+        0
+      ]
+    ],
+    "emptyMap": {},
+    "emptyList": []
+  },
+  "DEFAULTR": {
+    "objectMapFill": [
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "a": "b",
+        "x": "y"
+      }
+    ],
+    "objectArrayFill": [
+      [],
+      [],
+      [],
+      [
+        0
+      ],
+      [
+        4
+      ]
+    ],
+    "emptyMap": {},
+    "emptyList": []
+  },
+  "DEFINR": {
+    "objectMapFill": [
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "a": "b"
+      },
+      {
+        "x": "y"
+      }
+    ],
+    "objectArrayFill": [
+      [],
+      [],
+      [],
+      [
+        0
+      ],
+      [
+        4
+      ]
+    ],
+    "emptyMap": {},
+    "emptyList": []
+  }
 }

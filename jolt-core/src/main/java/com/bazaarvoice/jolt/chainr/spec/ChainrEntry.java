@@ -48,15 +48,15 @@ public class ChainrEntry {
      */
     static {
         HashMap<String, String> temp = new HashMap<>();
-        temp.put( "shift", Shiftr.class.getName() );
-        temp.put( "default", Defaultr.class.getName() );
-        temp.put( "modify-overwrite-beta", Modifier.Overwritr.class.getName() );
-        temp.put( "modify-default-beta", Modifier.Defaultr.class.getName() );
-        temp.put( "modify-define-beta", Modifier.Definr.class.getName() );
-        temp.put( "remove", Removr.class.getName() );
-        temp.put( "sort", Sortr.class.getName() );
-        temp.put( "cardinality", CardinalityTransform.class.getName() );
-        STOCK_TRANSFORMS = Collections.unmodifiableMap( temp );
+        temp.put("shift", Shiftr.class.getName());
+        temp.put("default", Defaultr.class.getName());
+        temp.put("modify-overwrite-beta", Modifier.Overwritr.class.getName());
+        temp.put("modify-default-beta", Modifier.Defaultr.class.getName());
+        temp.put("modify-define-beta", Modifier.Definr.class.getName());
+        temp.put("remove", Removr.class.getName());
+        temp.put("sort", Sortr.class.getName());
+        temp.put("cardinality", CardinalityTransform.class.getName());
+        STOCK_TRANSFORMS = Collections.unmodifiableMap(temp);
     }
 
     public static final String OPERATION_KEY = "operation";
@@ -75,80 +75,76 @@ public class ChainrEntry {
      * the ChainrInstantiator deals with loading the Transform classes.
      *
      * @param chainrEntryObj the unknown Object from the Chainr list
-     * @param index the index of the chainrEntryObj, used in reporting errors
+     * @param index          the index of the chainrEntryObj, used in reporting errors
      */
-    public ChainrEntry( int index, Object chainrEntryObj, ClassLoader classLoader ) {
+    public ChainrEntry(int index, Object chainrEntryObj, ClassLoader classLoader) {
 
-        if ( ! (chainrEntryObj instanceof Map ) ) {
-            throw new SpecException( "JOLT ChainrEntry expects a JSON map - Malformed spec" + getErrorMessageIndexSuffix() );
+        if (!(chainrEntryObj instanceof Map)) {
+            throw new SpecException("JOLT ChainrEntry expects a JSON map - Malformed spec" + getErrorMessageIndexSuffix());
         }
 
-        @SuppressWarnings( "unchecked" ) // We know it is a Map due to the check above
-        Map<String,Object> chainrEntryMap = (Map<String, Object>) chainrEntryObj;
+        @SuppressWarnings("unchecked") // We know it is a Map due to the check above
+                Map<String, Object> chainrEntryMap = (Map<String, Object>) chainrEntryObj;
 
         this.index = index;
 
-        String opString = extractOperationString( chainrEntryMap );
+        String opString = extractOperationString(chainrEntryMap);
 
-        if ( opString == null ) {
-            throw new SpecException( "JOLT Chainr 'operation' must implement Transform or ContextualTransform" + getErrorMessageIndexSuffix() );
+        if (opString == null) {
+            throw new SpecException("JOLT Chainr 'operation' must implement Transform or ContextualTransform" + getErrorMessageIndexSuffix());
         }
 
-        if ( STOCK_TRANSFORMS.containsKey( opString ) ) {
-            operationClassName = STOCK_TRANSFORMS.get( opString );
-        }
-        else {
+        if (STOCK_TRANSFORMS.containsKey(opString)) {
+            operationClassName = STOCK_TRANSFORMS.get(opString);
+        } else {
             operationClassName = opString;
         }
 
-        joltTransformClass = loadJoltTransformClass( classLoader );
+        joltTransformClass = loadJoltTransformClass(classLoader);
 
-        spec = chainrEntryMap.get( ChainrEntry.SPEC_KEY );
+        spec = chainrEntryMap.get(ChainrEntry.SPEC_KEY);
 
-        isSpecDriven = SpecDriven.class.isAssignableFrom( joltTransformClass );
-        if ( isSpecDriven && ! chainrEntryMap.containsKey( SPEC_KEY ) ) {
-            throw new SpecException( "JOLT Chainr - Transform className:" + joltTransformClass.getName() + " requires a spec" + getErrorMessageIndexSuffix() );
+        isSpecDriven = SpecDriven.class.isAssignableFrom(joltTransformClass);
+        if (isSpecDriven && !chainrEntryMap.containsKey(SPEC_KEY)) {
+            throw new SpecException("JOLT Chainr - Transform className:" + joltTransformClass.getName() + " requires a spec" + getErrorMessageIndexSuffix());
         }
     }
 
-    private String extractOperationString( Map<String, Object> chainrEntryMap ) {
+    private String extractOperationString(Map<String, Object> chainrEntryMap) {
 
-        Object operationNameObj = chainrEntryMap.get( ChainrEntry.OPERATION_KEY );
-        if ( operationNameObj == null ) {
+        Object operationNameObj = chainrEntryMap.get(ChainrEntry.OPERATION_KEY);
+        if (operationNameObj == null) {
             return null;
-        }
-        else if ( operationNameObj instanceof String) {
-            if ( StringTools.isBlank((String) operationNameObj) ) {
-                throw new SpecException( "JOLT Chainr '" + ChainrEntry.OPERATION_KEY + "' should not be blank" + getErrorMessageIndexSuffix() );
+        } else if (operationNameObj instanceof String) {
+            if (StringTools.isBlank((String) operationNameObj)) {
+                throw new SpecException("JOLT Chainr '" + ChainrEntry.OPERATION_KEY + "' should not be blank" + getErrorMessageIndexSuffix());
             }
             return (String) operationNameObj;
-        }
-        else {
-            throw new SpecException( "JOLT Chainr needs a '" + ChainrEntry.OPERATION_KEY + "' of type String" + getErrorMessageIndexSuffix() );
+        } else {
+            throw new SpecException("JOLT Chainr needs a '" + ChainrEntry.OPERATION_KEY + "' of type String" + getErrorMessageIndexSuffix());
         }
     }
 
     private Class<? extends JoltTransform> loadJoltTransformClass(ClassLoader classLoader) {
 
         try {
-            Class opClass = classLoader.loadClass( operationClassName );
+            Class opClass = classLoader.loadClass(operationClassName);
 
-            if ( Chainr.class.isAssignableFrom( opClass ) ) {
-                throw new SpecException( "Attempt to nest Chainr inside itself" + getErrorMessageIndexSuffix() );
+            if (Chainr.class.isAssignableFrom(opClass)) {
+                throw new SpecException("Attempt to nest Chainr inside itself" + getErrorMessageIndexSuffix());
             }
 
-            if ( ! JoltTransform.class.isAssignableFrom( opClass ) )
-            {
-                throw new SpecException( "JOLT Chainr class:" + operationClassName + " does not implement the JoltTransform interface" + getErrorMessageIndexSuffix() );
+            if (!JoltTransform.class.isAssignableFrom(opClass)) {
+                throw new SpecException("JOLT Chainr class:" + operationClassName + " does not implement the JoltTransform interface" + getErrorMessageIndexSuffix());
             }
 
-            @SuppressWarnings( "unchecked" ) // We know it is some type of Transform due to the check above
-            Class<? extends JoltTransform> transformClass = (Class<? extends JoltTransform>) opClass;
+            @SuppressWarnings("unchecked") // We know it is some type of Transform due to the check above
+                    Class<? extends JoltTransform> transformClass = (Class<? extends JoltTransform>) opClass;
 
             return transformClass;
 
-        } catch ( ClassNotFoundException e ) {
-            throw new SpecException( "JOLT Chainr could not find transform class:" + operationClassName + getErrorMessageIndexSuffix(), e );
+        } catch (ClassNotFoundException e) {
+            throw new SpecException("JOLT Chainr could not find transform class:" + operationClassName + getErrorMessageIndexSuffix(), e);
         }
     }
 

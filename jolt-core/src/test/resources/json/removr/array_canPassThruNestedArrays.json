@@ -23,17 +23,15 @@
       ]
     ]
   },
-
   "spec": {
     "arrayObjects": {
       "*": {
-        "*" : {
+        "*": {
           "removeThis": ""
         }
       }
     }
   },
-
   "expected": {
     "arrayObjects": [
       [

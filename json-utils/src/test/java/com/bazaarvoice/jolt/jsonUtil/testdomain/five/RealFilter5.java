@@ -22,15 +22,15 @@ import java.util.List;
 
 /**
  * Tell Jackson to use the "type" field to know which subclass to initialize.
- *
+ * <p>
  * E.g. "type" : "INTEGER" --> Deserialize a IntegerRealFilter5
  */
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME,include=JsonTypeInfo.As.PROPERTY,property="type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value=IntegerRealFilter5.class,name="INTEGER"),
-        @JsonSubTypes.Type(value=StringRealFilter5.class,name="STRING"),
-        @JsonSubTypes.Type(value=DateRealFilter5.class,name="DATE"),
-        @JsonSubTypes.Type(value=BooleanRealFilter5.class,name="BOOLEAN")})
+        @JsonSubTypes.Type(value = IntegerRealFilter5.class, name = "INTEGER"),
+        @JsonSubTypes.Type(value = StringRealFilter5.class, name = "STRING"),
+        @JsonSubTypes.Type(value = DateRealFilter5.class, name = "DATE"),
+        @JsonSubTypes.Type(value = BooleanRealFilter5.class, name = "BOOLEAN")})
 public abstract class RealFilter5<T> implements QueryFilter5<T> {
 
     public enum Type {

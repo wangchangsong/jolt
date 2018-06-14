@@ -28,7 +28,7 @@ public class GuiceSpecDrivenTransform implements SpecDriven, Transform {
     public static class GuiceConfig {
         private final String value;
 
-        public GuiceConfig( String value ) {
+        public GuiceConfig(String value) {
             this.value = value;
         }
     }
@@ -37,16 +37,16 @@ public class GuiceSpecDrivenTransform implements SpecDriven, Transform {
     private final String specKeyValue;
 
     @Inject
-    public GuiceSpecDrivenTransform( GuiceConfig guiceConfig, Object spec ) {
+    public GuiceSpecDrivenTransform(GuiceConfig guiceConfig, Object spec) {
         this.guiceConfig = guiceConfig;
 
-        specKeyValue = (String) ((Map) spec).get( SPEC_DRIVEN_KEY );
+        specKeyValue = (String) ((Map) spec).get(SPEC_DRIVEN_KEY);
     }
 
     @Override
-    public Object transform( Object input ) {
+    public Object transform(Object input) {
 
-        ((Map) input).put( specKeyValue, guiceConfig.value );
+        ((Map) input).put(specKeyValue, guiceConfig.value);
         return input;
     }
 }

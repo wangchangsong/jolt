@@ -25,12 +25,12 @@ public class GoodTestTransform implements SpecDriven, Transform {
     private final Object spec;
 
     @Inject
-    public GoodTestTransform( Object spec ) {
+    public GoodTestTransform(Object spec) {
         this.spec = spec;
     }
 
     @Override
-    public Object transform( Object input ) {
-        return new TransformTestResult( input, spec );
+    public Object transform(Object input) {
+        return new TransformTestResult(input, spec);
     }
 }

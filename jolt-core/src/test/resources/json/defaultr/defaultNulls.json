@@ -1,12 +1,10 @@
 {
-    "input": {
-    },
-
-    "spec": {
-        "foo": null
-    },
-
-    "expected": {
-        "foo": null
-    }
+  "input": {
+  },
+  "spec": {
+    "foo": null
+  },
+  "expected": {
+    "foo": null
+  }
 }

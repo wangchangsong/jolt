@@ -21,12 +21,12 @@ import com.bazaarvoice.jolt.traversr.Traversr;
 import java.util.Iterator;
 
 
-public abstract class BaseTraversalStep<StepType,DataType> implements TraversalStep<StepType,DataType> {
+public abstract class BaseTraversalStep<StepType, DataType> implements TraversalStep<StepType, DataType> {
 
     protected final TraversalStep child;
     protected final Traversr traversr;
 
-    public BaseTraversalStep( Traversr traversr, TraversalStep child ) {
+    public BaseTraversalStep(Traversr traversr, TraversalStep child) {
         this.traversr = traversr;
         this.child = child;
     }
@@ -35,36 +35,35 @@ public abstract class BaseTraversalStep<StepType,DataType> implements TraversalS
         return child;
     }
 
-    public final Optional<DataType> traverse( StepType tree, Operation op, Iterator<String> keys, DataType data ) {
+    public final Optional<DataType> traverse(StepType tree, Operation op, Iterator<String> keys, DataType data) {
 
-        if ( tree == null ) {
+        if (tree == null) {
             return Optional.empty();
         }
 
-        if ( getStepType().isAssignableFrom( tree.getClass() ) ) {
+        if (getStepType().isAssignableFrom(tree.getClass())) {
 
             String key = keys.next();
 
-            if ( child == null ) {
+            if (child == null) {
                 // End of the Traversal so do the set or get
                 switch (op) {
-                    case GET :
-                        return this.get( tree, key );
-                    case SET :
-                        return (Optional<DataType>) traversr.handleFinalSet( this, tree, key, data );
+                    case GET:
+                        return this.get(tree, key);
+                    case SET:
+                        return (Optional<DataType>) traversr.handleFinalSet(this, tree, key, data);
                     case REMOVE:
-                        return this.remove( tree, key );
-                    default :
-                        throw new IllegalStateException( "Invalid op:" + op.toString() );
+                        return this.remove(tree, key);
+                    default:
+                        throw new IllegalStateException("Invalid op:" + op.toString());
                 }
-            }
-            else {
+            } else {
 
                 // We just an intermediate step, so traverse and then hand over control to our child
-                Optional<Object> optSub = traversr.handleIntermediateGet( this, tree, key, op );
+                Optional<Object> optSub = traversr.handleIntermediateGet(this, tree, key, op);
 
-                if ( optSub.isPresent() ) {
-                    return child.traverse( optSub.get(), op, keys, data );
+                if (optSub.isPresent()) {
+                    return child.traverse(optSub.get(), op, keys, data);
                 }
             }
         }

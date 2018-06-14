@@ -10,9 +10,12 @@
         "testStay": "still here"
       }
     ],
-    "arrayString" : ["entire", "field", "gone"]
+    "arrayString": [
+      "entire",
+      "field",
+      "gone"
+    ]
   },
-
   "spec": {
     "arrayObjects": {
       "*": {
@@ -21,7 +24,6 @@
     },
     "arrayString": ""
   },
-
   "expected": {
     "arrayObjects": [
       {

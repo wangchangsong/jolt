@@ -24,12 +24,12 @@ public class JoltSample {
 
     public static void main(String[] args) {
 
-        List chainrSpecJSON = JsonUtils.classpathToList( "/json/sample/spec.json" );
-        Chainr chainr = Chainr.fromSpec( chainrSpecJSON );
+        List chainrSpecJSON = JsonUtils.classpathToList("/json/sample/spec.json");
+        Chainr chainr = Chainr.fromSpec(chainrSpecJSON);
 
-        Object inputJSON = JsonUtils.classpathToObject( "/json/sample/input.json" );
+        Object inputJSON = JsonUtils.classpathToObject("/json/sample/input.json");
 
-        Object transformedOutput = chainr.transform( inputJSON );
-        System.out.println( JsonUtils.toJsonString( transformedOutput ) );
+        Object transformedOutput = chainr.transform(inputJSON);
+        System.out.println(JsonUtils.toJsonString(transformedOutput));
     }
 }

@@ -24,51 +24,53 @@ import java.util.Map;
 
 /**
  * OpMode differentiates different flavors of Templatr
- *
+ * <p>
  * Templatr can fill in leaf values as required in spec from a specified context, self or a hardcoded
  * default value. However whether or not that 'write' operation should go through, is determined by
  * this enum.
- *
+ * <p>
  * All of these opModes validates if the if the source (map or list) and the key/index are valid,
  * i.e. not null or >= 0, etc.
- *
+ * <p>
  * OVERWRITR always writes
  * DEFAULTR only writes when the the value at the key/index is null
  * DEFINR only writes when source does not contain the key/index
- *
  */
 public enum OpMode {
 
     OVERWRITR("+") {
         @Override
-        public boolean isApplicable( final Map source, final String key ) {
+        public boolean isApplicable(final Map source, final String key) {
             return super.isApplicable(source, key);
         }
+
         @Override
-        public boolean isApplicable( final List source, final int reqIndex ,  int origSize) {
-            return super.isApplicable(source, reqIndex , origSize);
+        public boolean isApplicable(final List source, final int reqIndex, int origSize) {
+            return super.isApplicable(source, reqIndex, origSize);
         }
     },
     DEFAULTR("~") {
         @Override
-        public boolean isApplicable( final Map source, final String key ) {
-            return super.isApplicable( source, key ) && source.get( key ) == null;
+        public boolean isApplicable(final Map source, final String key) {
+            return super.isApplicable(source, key) && source.get(key) == null;
         }
+
         @Override
-        public boolean isApplicable( final List source, final int reqIndex, int origSize ) {
-            return super.isApplicable(source, reqIndex, origSize ) && source.get( reqIndex ) == null;
+        public boolean isApplicable(final List source, final int reqIndex, int origSize) {
+            return super.isApplicable(source, reqIndex, origSize) && source.get(reqIndex) == null;
         }
     },
     DEFINER("_") {
         @Override
-        public boolean isApplicable( final Map source, final String key ) {
-            return super.isApplicable(source, key) && !source.containsKey( key );
+        public boolean isApplicable(final Map source, final String key) {
+            return super.isApplicable(source, key) && !source.containsKey(key);
         }
+
         @Override
-        public boolean isApplicable( final List source, final int reqIndex, int origSize ) {
-            return super.isApplicable(source, reqIndex, origSize ) &&
+        public boolean isApplicable(final List source, final int reqIndex, int origSize) {
+            return super.isApplicable(source, reqIndex, origSize) &&
                     // only new index contains null
-                    reqIndex >= origSize && source.get( reqIndex ) == null;
+                    reqIndex >= origSize && source.get(reqIndex) == null;
         }
     };
 
@@ -77,7 +79,7 @@ public enum OpMode {
      */
     private String op;
 
-    private OpMode( final String op ) {
+    private OpMode(final String op) {
         this.op = op;
     }
 
@@ -112,20 +114,20 @@ public enum OpMode {
     private static Map<String, OpMode> opModeMap;
 
     static {
-        opModeMap = new HashMap<>(  );
-        opModeMap.put( OVERWRITR.op, OVERWRITR );
-        opModeMap.put( DEFAULTR.op, DEFAULTR );
-        opModeMap.put( DEFINER.op, DEFINER );
+        opModeMap = new HashMap<>();
+        opModeMap.put(OVERWRITR.op, OVERWRITR);
+        opModeMap.put(DEFAULTR.op, DEFAULTR);
+        opModeMap.put(DEFINER.op, DEFINER);
     }
 
     public static boolean isValid(String op) {
-        return opModeMap.containsKey( op );
+        return opModeMap.containsKey(op);
     }
 
     public static OpMode from(String op) {
-        if ( isValid( op ) ) {
-            return opModeMap.get( op );
+        if (isValid(op)) {
+            return opModeMap.get(op);
         }
-        throw new SpecException( "OpMode " + op + " is not valid" );
+        throw new SpecException("OpMode " + op + " is not valid");
     }
 }

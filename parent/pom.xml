@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -6,7 +7,7 @@
         <groupId>com.bazaarvoice.commons</groupId>
         <artifactId>bv-opensource-super-pom</artifactId>
         <version>1.4</version>
-        <relativePath />
+        <relativePath/>
         <!--an empty relativePath for the super-pom, makes maven happy -->
     </parent>
 
@@ -21,8 +22,8 @@
         <url>https://github.com/bazaarvoice/jolt</url>
         <connection>scm:git:git@github.com:bazaarvoice/jolt.git</connection>
         <developerConnection>scm:git:git@github.com:bazaarvoice/jolt.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <!-- Override Java compiler version from the parent super-pom. -->
@@ -136,15 +137,15 @@
                 <!-- work around https://issues.apache.org/jira/browse/RAT-158 -->
                 <dependencies>
                     <dependency>
-                      <groupId>org.apache.maven.doxia</groupId>
-                      <artifactId>doxia-core</artifactId>
-                      <version>1.6</version>
-                      <exclusions>
-                        <exclusion>
-                          <groupId>xerces</groupId>
-                          <artifactId>xercesImpl</artifactId>
-                        </exclusion>
-                      </exclusions>
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-core</artifactId>
+                        <version>1.6</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>xerces</groupId>
+                                <artifactId>xercesImpl</artifactId>
+                            </exclusion>
+                        </exclusions>
                     </dependency>
                 </dependencies>
             </plugin>

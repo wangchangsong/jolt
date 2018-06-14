@@ -25,37 +25,37 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
-* StringTools Tester.
-*/
+ * StringTools Tester.
+ */
 public class StringToolsTest {
 
-    @DataProvider (parallel = true)
+    @DataProvider(parallel = true)
     public Iterator<Object[]> testCaseGenerator() {
         List<Object[]> testCases = Lists.newArrayList();
 
-        testCases.add(new String[] {null, null});
-        testCases.add(new String[] {"", ""});
+        testCases.add(new String[]{null, null});
+        testCases.add(new String[]{"", ""});
 
-        testCases.add(new String[] {null, ""});
-        testCases.add(new String[] {"", null});
+        testCases.add(new String[]{null, ""});
+        testCases.add(new String[]{"", null});
 
-        testCases.add(new String[] {RandomStringUtils.randomAscii(1<<2), null});
-        testCases.add(new String[] {RandomStringUtils.randomAscii(1<<2), ""});
+        testCases.add(new String[]{RandomStringUtils.randomAscii(1 << 2), null});
+        testCases.add(new String[]{RandomStringUtils.randomAscii(1 << 2), ""});
 
-        testCases.add(new String[] {null, RandomStringUtils.randomAscii(1<<2)});
-        testCases.add(new String[] {"", RandomStringUtils.randomAscii(1<<2)});
+        testCases.add(new String[]{null, RandomStringUtils.randomAscii(1 << 2)});
+        testCases.add(new String[]{"", RandomStringUtils.randomAscii(1 << 2)});
 
 
-        int i=1<<6;
-        while(i-- > 0) {
-            testCases.add(new String[] { RandomStringUtils.randomAscii(1<<10), RandomStringUtils.randomAscii(1<<2) });
-            testCases.add(new String[] { RandomStringUtils.randomAscii(1<<2), RandomStringUtils.randomAscii(1<<10) });
+        int i = 1 << 6;
+        while (i-- > 0) {
+            testCases.add(new String[]{RandomStringUtils.randomAscii(1 << 10), RandomStringUtils.randomAscii(1 << 2)});
+            testCases.add(new String[]{RandomStringUtils.randomAscii(1 << 2), RandomStringUtils.randomAscii(1 << 10)});
 
-            testCases.add(new String[] { RandomStringUtils.randomAlphabetic(1<<10), RandomStringUtils.randomAlphabetic(1<<2) });
-            testCases.add(new String[] { RandomStringUtils.randomAlphabetic(1<<2), RandomStringUtils.randomAlphabetic(1<<10) });
+            testCases.add(new String[]{RandomStringUtils.randomAlphabetic(1 << 10), RandomStringUtils.randomAlphabetic(1 << 2)});
+            testCases.add(new String[]{RandomStringUtils.randomAlphabetic(1 << 2), RandomStringUtils.randomAlphabetic(1 << 10)});
 
-            testCases.add(new String[] { RandomStringUtils.randomAlphanumeric(1<<10), RandomStringUtils.randomAlphanumeric(1<<2) });
-            testCases.add(new String[] { RandomStringUtils.randomAlphanumeric(1<<2), RandomStringUtils.randomAlphanumeric(1<<10) });
+            testCases.add(new String[]{RandomStringUtils.randomAlphanumeric(1 << 10), RandomStringUtils.randomAlphanumeric(1 << 2)});
+            testCases.add(new String[]{RandomStringUtils.randomAlphanumeric(1 << 2), RandomStringUtils.randomAlphanumeric(1 << 10)});
         }
 
         return testCases.iterator();
@@ -103,4 +103,4 @@ public class StringToolsTest {
         Assert.assertTrue(StringTools.isEmpty(null));
         Assert.assertFalse(StringTools.isEmpty(" "));
     }
-} 
+}
